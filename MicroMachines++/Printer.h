@@ -6,6 +6,8 @@
 
 class Printer
 {
+
+	bool printerOn=false;
 public:
 	Printer();
 	~Printer();

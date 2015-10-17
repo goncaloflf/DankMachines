@@ -12,7 +12,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-#define DELTA_T 15
+#define DELTA_T 5
 
 using namespace std;
 
