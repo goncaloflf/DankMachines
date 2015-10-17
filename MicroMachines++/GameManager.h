@@ -10,6 +10,7 @@
 #include "RoadSide.h"
 #include "Track.h"
 #include <time.h>
+#include "Printer.h"
 
 class GameManager {
 private:
@@ -21,6 +22,8 @@ private:
 	//_cars[0] -> player controlled car; vector 
 	std::vector<Car*> _cars;
 	Track* _ground;
+
+	Printer _printer;
 	// std::vector<LightSource> _light_Sources; //
 
 	// implementação baseada no necessário para a primeira entrega //

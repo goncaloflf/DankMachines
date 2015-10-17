@@ -7,6 +7,7 @@
 class Entity {
 
 	Vector3 _pos;
+
 	
 public:
 	Entity(double x, double y, double z);
@@ -20,6 +21,7 @@ public:
 	void setPosition(Vector3 v);
 
 	void setPosition(double x, double y, double z);
+
 
 	Vector3 getPosition();
 

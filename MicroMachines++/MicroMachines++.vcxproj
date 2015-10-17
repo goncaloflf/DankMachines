@@ -160,6 +160,7 @@
     <ClCompile Include="Orange.cpp" />
     <ClCompile Include="OrthogonalCamera.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
+    <ClCompile Include="Printer.cpp" />
     <ClCompile Include="River.cpp" />
     <ClCompile Include="RoadSide.cpp" />
     <ClCompile Include="StaticObject.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Orange.h" />
     <ClInclude Include="OrthogonalCamera.h" />
     <ClInclude Include="PerspectiveCamera.h" />
+    <ClInclude Include="Printer.h" />
     <ClInclude Include="River.h" />
     <ClInclude Include="RoadSide.h" />
     <ClInclude Include="StaticObject.h" />

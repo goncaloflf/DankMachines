@@ -10,10 +10,11 @@
 		_pos = pos; 
 	}
 
-	Entity::Entity(){}
+	Entity::Entity(){
+	}
 
-	Entity::~Entity() {}
-
+	Entity::~Entity() {
+	}
 	void Entity::setPosition(Vector3 v) {
 		_pos = v;
 	}

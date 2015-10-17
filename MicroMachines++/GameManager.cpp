@@ -9,7 +9,7 @@ static GameManager* _currentInstance;
 
 
 GameManager::GameManager(){
-
+	_printer = Printer();
 }
 
 GameManager::~GameManager() {
@@ -123,22 +123,23 @@ void GameManager::display() {
 	
 	for each(Car *obj in _cars) {
 		glPushMatrix();
-		glTranslatef(obj->getPosition().getX(), obj->getPosition().getY(), obj->getPosition().getZ());
-		obj->draw();
+			glTranslatef(obj->getPosition().getX(), obj->getPosition().getY(), obj->getPosition().getZ());
+			obj->draw();
+			_printer.printPosition(obj);
 		glPopMatrix();
 	}
 
 	for each(Orange *obj in _oranges) {
 		glPushMatrix();
-		glTranslatef(obj->getPosition().getX(), obj->getPosition().getY(), obj->getPosition().getZ());
-		obj->draw();
+			glTranslatef(obj->getPosition().getX(), obj->getPosition().getY(), obj->getPosition().getZ());
+			obj->draw();
 		glPopMatrix();
 	}
 
 	for each(Butter *obj in _butters) {
 		glPushMatrix();
-		glTranslatef(obj->getPosition().getX(), obj->getPosition().getY(), obj->getPosition().getZ());
-		obj->draw();
+			glTranslatef(obj->getPosition().getX(), obj->getPosition().getY(), obj->getPosition().getZ());
+			obj->draw();
 		glPopMatrix();
 	}
 

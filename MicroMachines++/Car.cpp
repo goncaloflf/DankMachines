@@ -152,6 +152,8 @@
 			decreaseSpeed();
 		}
 
+		//printPosition(this);
+
 	}
 	void Car::decreaseSpeed() {
 
