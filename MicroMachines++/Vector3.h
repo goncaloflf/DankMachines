@@ -34,6 +34,12 @@ public:
 
 	Vector3 operatorMux(double m);
 
+	double Vector3::getNorm();
+
+	Vector3 crossProduct(Vector3 _v);
+
+	void normalizeVec();
+
 	Vector3 operatorMinus(Vector3 v);
 
 

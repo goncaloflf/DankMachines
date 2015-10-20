@@ -14,7 +14,7 @@ protected:
 	double _top;
 
 public:
-	OrthogonalCamera(Vector3 pos, Vector3 up, Vector3 center, Vector3 at, double near, double far, double left, double right, double bottom, double top);
+	OrthogonalCamera(Vector3 pos, Vector3 up, Vector3 target, double near1, double far1, double left, double right, double bottom, double top);
 
 	~OrthogonalCamera();
 

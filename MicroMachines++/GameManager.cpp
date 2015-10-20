@@ -2,9 +2,15 @@
 static GameManager* _currentInstance;
 //fix physics
 //fix destructors in gamemaneger
+//implement cameras - study that shit
+//implement lights
+//textures?
+//moving wheels according to DoF
+//collisions -> event handler
+//fix game loop with DELTA_T
+
 
 //FPS display
-//logger
 //nao gosto do carro
 
 
@@ -16,6 +22,8 @@ GameManager::~GameManager() {
 	for each (Camera camera in _cameras) {
 		camera.~Camera();
 	}
+
+	
 }
 void GameManager::addGameObject(Car* _obj){
 	_cars.push_back(_obj);
@@ -59,10 +67,25 @@ Camera GameManager::getCamera(int i) {
 }
 
 void GameManager::onTimer() {
+	//calcFPS();
 	update();
 	display();
 	glutPostRedisplay();
 	glutTimerFunc(DELTA_T, timerCallback, 0);
+}
+
+void GameManager::calcFPS() {
+	static char _windowTitle[20];
+	static int frame = 0, time, timebase = 0;
+
+	frame++;
+	time = glutGet(GLUT_ELAPSED_TIME);
+	if (time - timebase > 1000) {
+		sprintf(_windowTitle,"DankMachines %d", frame*1000.0 / (time - timebase));
+		timebase = time;
+		frame = 0;
+	}
+	glutSetWindowTitle(_windowTitle);
 }
 
 void GameManager::idle() {}
@@ -80,6 +103,8 @@ void GameManager::update() {
 	for each(Butter *obj in _butters) {
 		obj->update();
 	}
+
+
 	
 }
 
@@ -174,6 +199,8 @@ void GameManager::display() {
 	glFlush();
 	glutSwapBuffers();
 
+	
+
 }
 
 void GameManager::setDebugMode(bool _val) {
@@ -256,16 +283,18 @@ void GameManager::init(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(600, 400);
-	glutCreateWindow("MicroFails");
+	glutCreateWindow("");
 	glEnable(GL_DEPTH_TEST);
+
 
 	GameManager::setupCallbacks();
 	glutReshapeFunc(GameManager::reshapeCallback);
 	glutSpecialFunc(GameManager::specialCallback);
 	glutSpecialUpFunc(GameManager::specialUpCallback);
 	glutKeyboardFunc(GameManager::keypressCallback);
-	glutTimerFunc(15, GameManager::timerCallback, 0);
 	glutDisplayFunc(GameManager::displayCallback);
+	glutTimerFunc(15, GameManager::timerCallback, 0);
+
 	glutMainLoop();
 
 }

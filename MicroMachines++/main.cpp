@@ -18,7 +18,6 @@ int main(int argc, char* argv[]) {
 	_manager = new GameManager();
 	srand(static_cast <unsigned> (time(0)));
 
-
 	_manager->addGameObject(new Car(0, 0, 0));
 	
 	//added flexibility for starting game objects
@@ -40,6 +39,7 @@ int main(int argc, char* argv[]) {
 	_manager->addGameObject(new RoadSide(0, 0, 0));
 	_manager->addGameObject(new Track());
 	_manager->init(argc,argv);
+
 	
 	
 	return 0;

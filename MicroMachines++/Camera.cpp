@@ -1,22 +1,18 @@
 #include "Camera.h"
 
-	Camera::Camera(Vector3 pos, Vector3 up,Vector3 center, Vector3 at, double near1, double far1) {
-		//puto wtf
-		Entity::Entity(pos);
+	Camera::Camera(Vector3 pos, Vector3 up,Vector3 target, double near1, double far1):Entity(pos) {
 		_near1 = near1;
 		_far1 = far1;
+
 		_up = up;
-		_center = center;
-		_at = at;
+		_center = pos.operatorMinus(target);
+		_right = _center.crossProduct(_up);
+
 	}
 
 	Camera::Camera(){}
 
-	Camera::~Camera() { Entity::~Entity(); }
-
-	Vector3 Camera::getAt() { return _at; }
-
-	void Camera::setAt(Vector3 at) { _at = at; }
+	Camera::~Camera() { }
 
 	Vector3 Camera::getCenter() { return _center; }
 

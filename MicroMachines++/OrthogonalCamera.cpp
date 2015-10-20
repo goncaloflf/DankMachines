@@ -1,7 +1,7 @@
 #include "OrthogonalCamera.h"
 
-	OrthogonalCamera::OrthogonalCamera(Vector3 pos, Vector3 up, Vector3 center, Vector3 at, double near1, double far1, double left, double right, double bottom, double top) {
-		Camera(pos, up, center, at, near1, far1);
+	OrthogonalCamera::OrthogonalCamera(Vector3 pos, Vector3 up, Vector3 target, double near1, double far1, double left, double right, double bottom, double top):Camera(pos, up,target, near1, far1) {
+		
 		_left = left;
 		_right = right;
 		_bottom = bottom;

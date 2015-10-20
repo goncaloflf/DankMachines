@@ -12,10 +12,15 @@
 #include <iostream>
 #include <stdlib.h>
 
-#define DELTA_T 5
+#define DELTA_T 1
+#define _orthoWidth -1.8f
+#define _orthoHeight 1.8f
+
 
 using namespace std;
 
-#define _orthoWidth -1.8f
-#define _orthoHeight 1.8f
+
+
+
+
 #endif

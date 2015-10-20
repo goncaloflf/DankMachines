@@ -12,23 +12,20 @@ protected:
 	double _far1;
 	Vector3 _up;
 	Vector3 _center;
-	Vector3 _at;
+	Vector3 _right;
 
 public:
 
-	Camera(Vector3 pos, Vector3 up, Vector3 center, Vector3 at ,double near1, double far1);
+	Camera(Vector3 pos, Vector3 up, Vector3 target, double near1, double far1);
 
 	Camera();
 
 	~Camera();
 
-	Vector3 getAt();
-
-	void setAt(Vector3 at);
-
 	Vector3 getCenter();
 
 	void setCenter(Vector3 center);
+
 
 	Vector3 getUp();
 

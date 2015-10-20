@@ -12,7 +12,7 @@ protected:
 	double _fovy;
 	double _aspect;
 public:
-	PerspectiveCamera(Vector3 pos, Vector3 up, Vector3 center, Vector3 at, double near, double far, double fovy, double aspect);
+	PerspectiveCamera(Vector3 pos, Vector3 up, Vector3 target, double near, double far, double fovy, double aspect);
 
 	~PerspectiveCamera();
 

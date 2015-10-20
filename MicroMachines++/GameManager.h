@@ -74,6 +74,8 @@ public:
 	
 	static void displayCallback();
 
+	void calcFPS();
+
 	void display();
 
 	void specialKeys(int key, int x, int y);
