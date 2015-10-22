@@ -9,12 +9,12 @@ Orange::Orange(double x, double y, double z):Obstacle(x,y,z){}
 
 		glPushMatrix();
 			glScalef(0.1, 0.1, 0.1);
-			glTranslatef(0.f, 0.1f, 0.f);
+			glTranslatef(0.f, 0.5f, 0.f);
 			//LARANJA
 			glPushMatrix(); //parte redonda
 				glColor3f(1.0f, 0.5f, 0.0f);
 				glRotatef(90, 1, 0, 0);
-				glutSolidSphere(1.0f, 20.0f, 20.0f);
+				glutSolidSphere(1.0f, 10.0f, 10.0f);
 			glPopMatrix();
 			glPushMatrix();
 				glBegin(GL_LINES); //pauzinho

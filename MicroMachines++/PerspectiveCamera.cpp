@@ -5,6 +5,8 @@
 		_aspect = aspect;
 	}
 
+	PerspectiveCamera::PerspectiveCamera() : Camera(){}
+
 	PerspectiveCamera::~PerspectiveCamera() {}
 
 	double PerspectiveCamera::getFovy() { return _fovy; }
@@ -15,6 +17,13 @@
 
 	void PerspectiveCamera::setAspect(double aspect) { _aspect = aspect; }
 
-	void PerspectiveCamera::computePorjectionMatrix() {}
+	void PerspectiveCamera::computeProjectionMatrix() {
+
+		gluPerspective(_fovy, _aspect , _near1, _far1);
+		gluLookAt(getPosition().getX(), getPosition().getY(), getPosition().getZ(), //eye 010
+			_center.getX(), _center.getY(), _center.getZ(), //center 000
+			_up.getX(), _up.getY(), _up.getZ());//up 001
+
+	}
 
 	void PerspectiveCamera::computeVisualizationMatrix() {}

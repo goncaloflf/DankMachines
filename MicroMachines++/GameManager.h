@@ -4,6 +4,8 @@
 #include "Collection.h"
 #include "Camera.h"
 #include "GameObject.h"
+#include "PerspectiveCamera.h"
+#include "OrthogonalCamera.h"
 #include "Butter.h"
 #include "Car.h"
 #include "Orange.h"
@@ -14,7 +16,7 @@
 
 class GameManager {
 private:
-	std::vector<Camera> _cameras;
+	std::vector<Camera*> _cameras;
 
 	std::vector<Butter*> _butters;
 	std::vector<Orange*> _oranges;
@@ -24,6 +26,8 @@ private:
 	Track* _ground;
 
 	Printer _printer;
+
+	Camera *_currentCamera;
 	// std::vector<LightSource> _light_Sources; //
 
 	// implementação baseada no necessário para a primeira entrega //
@@ -43,10 +47,9 @@ public:
 	void addGameObject(Butter* _obj);
 	void addGameObject(Orange* _obj);
 	void addGameObject(Track* _obj);
+	void addCamera(Camera* _obj);
 
 	void init(int argc, char** argv);
-
-	Camera getCamera(int i);
 
 	void setDebugMode(bool v);
 

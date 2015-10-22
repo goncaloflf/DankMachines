@@ -1,36 +1,23 @@
 #include "Car.h"
 
-	Car::Car(double x, double y, double z):DynamicObject(x,y,z) {
+	Car::Car(double x, double y, double z) :DynamicObject(x, y, z) {
 		_speed = 0;
 	}
 
-	Car::Car(Vector3 pos): DynamicObject(pos){
+	Car::Car(Vector3 pos) : DynamicObject(pos) {
 		_speed = 0;
 	}
 
-	Car::Car():DynamicObject(){
+	Car::Car() : DynamicObject() {
 	}
 
 	Car::~Car() {}
-	void Car::setDoF(double x, double y, double z) {
-		_dof.setX(x);
-		_dof.setY(y);
-		_dof.setX(z);
-	}
-	void Car::setFlag(bool _val) {
-		_fwdTbwdF = _val;
-	}
-	void Car::setAngle(float _value) {
-		_angle = _value;
-	}
-	float Car::getAngle() {
-		return _angle;
-	}
+
 	void Car::draw() {
 		//chassis completo
 		glPushMatrix();
 			glRotatef(_angle, 0, 1, 0);
-			glScalef(0.1f, 0.1f, 0.1f);
+			glScalef(0.1f, 0.1f, 0.2f);
 			glPushMatrix();
 				glColor3f(1.0f, 0.0f, 0.0f);
 				//chassis baixo
@@ -99,15 +86,7 @@
 			glPopMatrix();
 		glPopMatrix();
 	}
-	void Car::setBSpeed(double val) {
-		_back_speed = val;
-	}
-	void Car::setFWflag(bool _val) {
-		_keyupFW = _val;
-	}
-	void Car::setBWflag(bool _val) {
-		_keyupBW = _val;
-	}
+
 	//fds nem acredito
 	void Car::update(double delta_t) {
 		if (_backward == true && _forward == false) {
@@ -131,6 +110,7 @@
 					getPosition().getZ() - sin((_angle*3.14) / 180)*_speed
 					
 					);
+				
 		}
 
 		if (_left == true && _right==false) { 
@@ -138,21 +118,23 @@
 			if (_speed != 0 || _back_speed!=0) {
 				
 				setAngle(getAngle() + 4);
+				setDoF(_dof.getX()*sin((_angle*3.14) / 180), 0, _dof.getZ()*cos((_angle*3.14) / 180));
+				_dof.normalizeVec();
 			}
 		}
 
 		if (_right == true && _left==false) { 
 			if (_speed != 0 || _back_speed!=0) {
-				setDoF(_dof.getX()*sin((_angle*3.14) / 180), 0, _dof.getZ()*cos((_angle*3.14) / 180));
+				
 				setAngle(getAngle() - 4);
+				setDoF(_dof.getX()*sin((_angle*3.14) / 180), 0, _dof.getZ()*cos((_angle*3.14) / 180));
+				_dof.normalizeVec();
 			}
 		}
 
 		if (_fwdTbwdF == true) {
 			decreaseSpeed();
 		}
-
-		//printPosition(this);
 
 	}
 	void Car::decreaseSpeed() {
@@ -198,5 +180,28 @@
 	void Car::setRG(bool _value) {
 		_right = _value;
 	}
-
 	
+	void Car::setDoF(double x, double y, double z) {
+		_dof.setX(x);
+		_dof.setY(y);
+		_dof.setX(z);
+	}
+	void Car::setFlag(bool _val) {
+		_fwdTbwdF = _val;
+	}
+	void Car::setAngle(float _value) {
+		_angle = _value;
+	}
+	float Car::getAngle() {
+		return _angle;
+	}
+
+	void Car::setBSpeed(double val) {
+		_back_speed = val;
+	}
+	void Car::setFWflag(bool _val) {
+		_keyupFW = _val;
+	}
+	void Car::setBWflag(bool _val) {
+		_keyupBW = _val;
+	}

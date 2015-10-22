@@ -8,7 +8,25 @@
 		_top = top;
 	}
 
-	OrthogonalCamera::~OrthogonalCamera() { Camera::~Camera(); }
+	void OrthogonalCamera::update() {}
+
+	void OrthogonalCamera::computeProjectionMatrix() {
+		
+		glOrtho(_left, _right, _bottom, _top, _near1, _far1);
+		gluLookAt(getPosition().getX(), getPosition().getY(), getPosition().getZ(), //eye 010
+			_center.getX(), _center.getY(), _center.getZ(), //center 000
+			_up.getX(), _up.getY(), _up.getZ());//up 001
+		/*gluLookAt(0, 1, 0, //eye 010
+			0, 0 ,0 , //center 000
+			0, 0 ,1);//up 001*/
+	}
+
+	void OrthogonalCamera::computeVisualizationMatrix() {}
+
+	
+	OrthogonalCamera::OrthogonalCamera():Camera(){}
+
+	OrthogonalCamera::~OrthogonalCamera() { }
 
 	double OrthogonalCamera::getLeft() { return _left; }
 
@@ -26,8 +44,4 @@
 
 	void OrthogonalCamera::setTop(double top) { _top = top; }
 
-	void OrthogonalCamera::update() {}
 
-	void OrthogonalCamera::computeProjectionMatrix() {}
-
-	void OrthogonalCamera::computeVisualizationMatrix() {}

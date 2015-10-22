@@ -19,8 +19,6 @@ class GameObject : public Entity
 
 	virtual void draw();
 
-	void print();
-
 	virtual void update(double delta_t);
 
 };

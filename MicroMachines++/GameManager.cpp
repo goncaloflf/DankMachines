@@ -4,11 +4,13 @@ static GameManager* _currentInstance;
 //fix destructors in gamemaneger
 //implement cameras - study that shit
 //implement lights
+//fix cheerios
 //textures?
 //moving wheels according to DoF
 //collisions -> event handler
 //fix game loop with DELTA_T
-
+//parent and child objects -> move table, move cheerios
+//sera realmente bom ter as translaçoes no draw? apply transformation ?
 
 //FPS display
 //nao gosto do carro
@@ -18,53 +20,8 @@ GameManager::GameManager(){
 	_printer = Printer();
 }
 
-GameManager::~GameManager() {
-	for each (Camera camera in _cameras) {
-		camera.~Camera();
-	}
+GameManager::~GameManager() {}
 
-	
-}
-void GameManager::addGameObject(Car* _obj){
-	_cars.push_back(_obj);
-}
-void GameManager::addGameObject(RoadSide* _obj) {
-	_track.push_back(_obj);
-}
-void GameManager::addGameObject(Butter* _obj){
-	_butters.push_back(_obj);
-}
-void GameManager::addGameObject(Orange* _obj){
-	_oranges.push_back(_obj);
-}
-void GameManager::addGameObject(Track* _obj) {
-	_ground = _obj;
-}
-void GameManager::displayCallback() {
-	_currentInstance->display();
-}
-void GameManager::reshapeCallback(int x, int y) {
-	_currentInstance->myReshape(x, y);
-}
-void GameManager::specialCallback(int key, int x, int y) {
-	_currentInstance->specialKeys(key, x, y);
-}
-void GameManager::specialUpCallback(int key, int x, int y) {
-	_currentInstance->specialUpKeys(key, x, y);
-}
-void GameManager::keypressCallback(unsigned char key, int x, int y) {
-	_currentInstance->keyPressed(key, x, y);
-}
-void GameManager::timerCallback(int i) {
-	_currentInstance->onTimer();
-
-}
-void GameManager::setupCallbacks() {
-	_currentInstance = this;
-}
-Camera GameManager::getCamera(int i) { 
-	return _cameras[i];
-}
 
 void GameManager::onTimer() {
 	//calcFPS();
@@ -104,7 +61,6 @@ void GameManager::update() {
 		obj->update();
 	}
 
-
 	
 }
 
@@ -116,22 +72,18 @@ void GameManager::myReshape(GLsizei w, GLsizei h) {
 		glViewport((w - h*ratio) / 2, 0, h*ratio, h);
 	else
 		glViewport(0, (h - w / ratio) / 2, w, w / ratio);
-	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);
-	gluLookAt(0, 1, 0, //eye
-			  0, 0, 0, //center
-			  0, 0, 1);//up
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 }
 
 void GameManager::display() {
-	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	_currentCamera->computeProjectionMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	//Reset window and color
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0,0.5,0.8,0.2);
+	glClearColor(0.f,0.75f,1.f,0.f);
 	//Make sure matrix is clear
 	glLoadIdentity();
 
@@ -169,27 +121,10 @@ void GameManager::display() {
 	}
 
 	for each(RoadSide *obj in _track) {
-		float _angle = 0;
-		float _inner_radius = 1.f;
-		float _outter_radius = 1.8f;
-
-		while (_angle < 360) {
-			glPushMatrix();
-				glRotatef(_angle, 0, 1, 0);
-				glTranslatef(0, 0, _inner_radius);
-				obj->draw();
-			glPopMatrix();
-			_angle += 8.f;
-		}
-		_angle = 0;
-		while (_angle < 360) {
-			glPushMatrix();
-				glRotatef(_angle, 0, 1, 0);
-				glTranslatef(0, 0, _outter_radius);
-				obj->draw();
-			glPopMatrix();
-			_angle += 4.f;
-		}
+		glPushMatrix();
+			glTranslatef(obj->getPosition().getX(), obj->getPosition().getY(), obj->getPosition().getZ());
+			obj->draw();
+		glPopMatrix();
 	}
 
 	_ground->draw();
@@ -198,14 +133,9 @@ void GameManager::display() {
 	//FLUSH OPENGL CONTEXT
 	glFlush();
 	glutSwapBuffers();
-
-	
-
 }
 
-void GameManager::setDebugMode(bool _val) {
-	debug_mode = _val;
-}
+
 
 void GameManager::keyPressed(unsigned char key, int x, int y) {
 	switch (key) {
@@ -218,6 +148,16 @@ void GameManager::keyPressed(unsigned char key, int x, int y) {
 		break;
 	case int('e'):
 		rotate_x += 5;
+		break;
+	case int('1') :
+		_currentCamera = _cameras[0];
+		break;
+	case int('2') :
+		_currentCamera = _cameras[1];
+		break;
+	case int('3'):
+		_currentCamera = _cameras[2];
+
 		break;
 	case int('s'):
 		rotate_y -= 5;
@@ -280,6 +220,8 @@ void GameManager::specialUpKeys(int key,int x, int y) {
 }
 
 void GameManager::init(int argc, char** argv) {
+	_currentCamera = _cameras[0];
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(600, 400);
@@ -297,4 +239,49 @@ void GameManager::init(int argc, char** argv) {
 
 	glutMainLoop();
 
+}
+
+void GameManager::addGameObject(Car* _obj) {
+	_cars.push_back(_obj);
+}
+void GameManager::addGameObject(RoadSide* _obj) {
+	_track.push_back(_obj);
+}
+void GameManager::addGameObject(Butter* _obj) {
+	_butters.push_back(_obj);
+}
+void GameManager::addGameObject(Orange* _obj) {
+	_oranges.push_back(_obj);
+}
+void GameManager::addGameObject(Track* _obj) {
+	_ground = _obj;
+}
+void GameManager::addCamera(Camera* _obj) {
+	_cameras.push_back(_obj);
+}
+void GameManager::displayCallback() {
+	_currentInstance->display();
+}
+void GameManager::reshapeCallback(int x, int y) {
+	_currentInstance->myReshape(x, y);
+}
+void GameManager::specialCallback(int key, int x, int y) {
+	_currentInstance->specialKeys(key, x, y);
+}
+void GameManager::specialUpCallback(int key, int x, int y) {
+	_currentInstance->specialUpKeys(key, x, y);
+}
+void GameManager::keypressCallback(unsigned char key, int x, int y) {
+	_currentInstance->keyPressed(key, x, y);
+}
+void GameManager::timerCallback(int i) {
+	_currentInstance->onTimer();
+
+}
+void GameManager::setupCallbacks() {
+	_currentInstance = this;
+}
+
+void GameManager::setDebugMode(bool _val) {
+	debug_mode = _val;
 }

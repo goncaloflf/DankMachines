@@ -10,9 +10,6 @@
 
 	void GameObject::draw() {}
 
-	void GameObject::print() {
-		cout << getPosition().getX() << endl;
-	}
 	void GameObject::update(double delta_t) {}
 
 	

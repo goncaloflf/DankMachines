@@ -14,6 +14,8 @@ protected:
 public:
 	PerspectiveCamera(Vector3 pos, Vector3 up, Vector3 target, double near, double far, double fovy, double aspect);
 
+	PerspectiveCamera();
+
 	~PerspectiveCamera();
 
 	double getFovy();
@@ -24,7 +26,7 @@ public:
 
 	void setAspect(double aspect);
 
-	void computePorjectionMatrix();
+	void computeProjectionMatrix();
 
 	void computeVisualizationMatrix();
 };

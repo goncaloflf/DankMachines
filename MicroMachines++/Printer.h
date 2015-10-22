@@ -12,6 +12,7 @@ public:
 	Printer();
 	~Printer();
 
+	void printPosition(Vector3 _v);
 	void printPosition(GameObject *_obj);
 };
 

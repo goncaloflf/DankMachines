@@ -13,13 +13,14 @@ class Car : public DynamicObject
 	bool _keyupFW=false;
 	bool _keyupBW=false;
 	bool _fwdTbwdF = false;
+
 	float _accel = 0.0005f;
 	float _back_speed=0.0f;
 	float _max_speed = 0.05f;
 	float _max_b_speed = 0.025f;
 	float _angle = 0.0f;
 
-	Vector3 _dof;
+	Vector3 _dof = Vector3(1,0,0);
 
 public:
 	double cenas;

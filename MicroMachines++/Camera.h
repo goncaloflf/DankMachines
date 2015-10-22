@@ -12,7 +12,7 @@ protected:
 	double _far1;
 	Vector3 _up;
 	Vector3 _center;
-	Vector3 _right;
+	Vector3 _rightVector;
 
 public:
 
@@ -39,11 +39,11 @@ public:
 
 	void setFar(double far);
 
-	void update();
+	virtual void update();
 
-	void computeProjectionMatrix();
+	virtual void computeProjectionMatrix();
 
-	void computeVisualizationMatrix();
+	virtual void computeVisualizationMatrix();
 };
 
 #endif
