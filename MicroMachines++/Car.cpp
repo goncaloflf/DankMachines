@@ -89,53 +89,46 @@
 
 	//fds nem acredito
 	void Car::update(double delta_t) {
+		cout << "x: " << _dof.getX() << " Y: " << _dof.getY() << " Z: " << _dof.getZ() << endl;
+		//cout << "x: " << getPosition().getX() << " Y: " << getPosition().getY() << " Z: " << getPosition().getZ() << endl;
+		
+		//backward
 		if (_backward == true && _forward == false) {
 			if (_back_speed < _max_b_speed) 
 				_back_speed += _accel;
-				
 				setPosition(
 					getPosition().getX() - cos((_angle*3.14)/180)*_back_speed
 					,0,
-					getPosition().getZ() + sin((_angle*3.14) / 180)*_back_speed
-					);		
+					getPosition().getZ() + sin((_angle*3.14) / 180)*_back_speed);		
 		}
-
+		//forward
 		if (_forward == true && _backward==false) {
 			if (_speed < _max_speed) 
 				_speed += _accel;
-	
 				setPosition(
 					getPosition().getX() + cos((_angle*3.14) / 180)*_speed,
 					0,
-					getPosition().getZ() - sin((_angle*3.14) / 180)*_speed
-					
-					);
-				
+					getPosition().getZ() - sin((_angle*3.14) / 180)*_speed);
 		}
-
+		//left turn
 		if (_left == true && _right==false) { 
-
 			if (_speed != 0 || _back_speed!=0) {
-				
 				setAngle(getAngle() + 4);
-				setDoF(_dof.getX()*sin((_angle*3.14) / 180), 0, _dof.getZ()*cos((_angle*3.14) / 180));
-				_dof.normalizeVec();
+				setDoF(cos((_angle*3.14) / 180), 0, -sin((_angle*3.14) / 180));
 			}
 		}
-
+		//right turn
 		if (_right == true && _left==false) { 
 			if (_speed != 0 || _back_speed!=0) {
-				
 				setAngle(getAngle() - 4);
-				setDoF(_dof.getX()*sin((_angle*3.14) / 180), 0, _dof.getZ()*cos((_angle*3.14) / 180));
-				_dof.normalizeVec();
+				setDoF(cos((_angle*3.14) / 180), 0, -sin((_angle*3.14) / 180));				
 			}
 		}
-
+		//decrease speed
 		if (_fwdTbwdF == true) {
 			decreaseSpeed();
 		}
-
+		
 	}
 	void Car::decreaseSpeed() {
 
@@ -181,10 +174,10 @@
 		_right = _value;
 	}
 	
-	void Car::setDoF(double x, double y, double z) {
+	void Car::setDoF(float x, float y, float z) {
 		_dof.setX(x);
 		_dof.setY(y);
-		_dof.setX(z);
+		_dof.setZ(z);
 	}
 	void Car::setFlag(bool _val) {
 		_fwdTbwdF = _val;
@@ -204,4 +197,8 @@
 	}
 	void Car::setBWflag(bool _val) {
 		_keyupBW = _val;
+	}
+
+	Vector3 Car::getDoF() {
+		return _dof;
 	}

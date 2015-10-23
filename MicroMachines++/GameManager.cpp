@@ -225,6 +225,7 @@ void GameManager::init(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(600, 400);
+	glutInitWindowPosition(700,100);
 	glutCreateWindow("");
 	glEnable(GL_DEPTH_TEST);
 

@@ -42,7 +42,8 @@ public:
 	void setLF(bool _value);
 	void setRG(bool _value);
 
-	void setDoF(double x, double y, double z);
+	void setDoF(float x, float y, float z);
+	Vector3 getDoF();
 
 	void update(double delta_t);
 };

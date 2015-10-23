@@ -48,13 +48,15 @@
 
 	void Vector3::normalizeVec() {
 		double _norm = getNorm();
-		setX(getX() / _norm);
-		setY(getY() / _norm);
-		setZ(getZ() / _norm);
+		cout << "norma" << _norm << endl;
+		setX(_x / _norm);
+		setY(_y / _norm);
+		setZ(_z / _norm);
 	}
 
 	double Vector3::getNorm() {
-		return sqrt(getX()*getX() + getY()*getY() + getZ()*getZ());
+		cout << "raiz: " << sqrt(_x*_x + _y*_y + _z*_z) << endl;
+		return sqrt(_x*_x + _y*_y + _z*_z);
 	}
 
 	Vector3 Vector3::crossProduct(Vector3 _v) {
