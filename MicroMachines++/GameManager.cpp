@@ -53,6 +53,10 @@ void GameManager::update() {
 		obj->update(DELTA_T);
 	}
 
+	for each(Camera *obj in _cameras) {
+		obj->update();
+	}
+
 	for each(Orange *obj in _oranges) {
 		obj->update();
 	}
@@ -61,6 +65,7 @@ void GameManager::update() {
 		obj->update();
 	}
 
+	
 	
 }
 
@@ -285,4 +290,8 @@ void GameManager::setupCallbacks() {
 
 void GameManager::setDebugMode(bool _val) {
 	debug_mode = _val;
+}
+
+Car* GameManager::getCar(int i) {
+	return _cars[i];
 }

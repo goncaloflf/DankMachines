@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
 	_manager = new GameManager();
 	srand(static_cast <unsigned> (time(0)));
 
-	_manager->addGameObject(new Car(0.1, 0.1, 0.1));
+	_manager->addGameObject(new Car(0,0,0));
 	
 	//added flexibility for starting game objects
 	for (i = 0; i < 3; i++) {
@@ -56,7 +56,10 @@ int main(int argc, char* argv[]) {
 
 	_manager->addCamera(new OrthogonalCamera(Vector3(0,1,0), Vector3(0,0,1), Vector3(0,0,0), -2.f, 2.f, -2.f, 2.f, -2.f, 2.f));
 	_manager->addCamera(new PerspectiveCamera(Vector3(0, 5, 0), Vector3(0, 0, 1), Vector3(0, 0, 0), 0.1f, 100.f, 45, 1));
-	_manager->addCamera(new PerspectiveCamera());
+	_manager->addCamera(new PerspectiveCamera(Vector3(_manager->getCar(0)->getPosition().getX()-0.6,0.2, _manager->getCar(0)->getPosition().getZ()), //position
+											Vector3(0,-1,0), //up
+											Vector3(_manager->getCar(0)->getDoF().operatorMux(50).getX(), _manager->getCar(0)->getDoF().operatorMux(50).getY(), _manager->getCar(0)->getDoF().operatorMux(50).getZ()), //target
+											0.1f,100.f,70,1));
 
 	_manager->init(argc,argv);
 	return 0;

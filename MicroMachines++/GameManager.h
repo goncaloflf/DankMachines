@@ -49,6 +49,13 @@ public:
 	void addGameObject(Track* _obj);
 	void addCamera(Camera* _obj);
 
+	Car* getCar(int i);
+	/*RoadSide getGameObject(int i);
+	Butter getGameObject(int i);
+	Orange getGameObject(int i);
+	Track getGameObject();
+	*/
+
 	void init(int argc, char** argv);
 
 	void setDebugMode(bool v);
